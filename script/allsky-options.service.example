@@ -1,0 +1,14 @@
+[Unit]
+Description=All Sky Cam Options Service
+After=network-online.target
+
+[Service]
+ExecStart=/bin/bash WORKING_DIR/start.sh
+WorkingDirectory=WORKING_DIR/
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=skycam
+
+[Install]
+WantedBy=multi-user.target

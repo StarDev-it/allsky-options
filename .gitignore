@@ -1,0 +1,6 @@
+# Ignore Intellij IDE settings
+.idea
+*.iml
+
+# Ignore Python VENV folder
+venv

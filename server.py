@@ -26,10 +26,13 @@ def get_status():
         'status': {}
     }
     for metric in input_handler.get():
-        result['value'][metric] = input_handler.get()[metric]
+        if metric is not 'is_rain':
+            result['value'][metric] = input_handler.get()[metric]
     result['value']['cpu_temperature'] = cpu_temperature.temperature
     result['status'] = {
+        'is_rain': input_handler.get()['is_rain'],
         'is_dew': input_handler.is_dew(),
+        'is_frost': input_handler.is_frost(),
         'is_dew_heater_enabled': dew_heater.is_enabled,
         'is_fan_enabled': fan.is_enabled
     }
@@ -85,7 +88,7 @@ class CheckDew:
     """
     def __init__(self, max_humidity=80, delta_dew_point=2, interval=15):
         while True:
-            if input_handler.is_dew(max_humidity, delta_dew_point):
+            if input_handler.is_dew(max_humidity, delta_dew_point) or input_handler.is_frost():
                 dew_heater.enable()
             else:
                 dew_heater.disable()

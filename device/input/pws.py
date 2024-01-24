@@ -103,7 +103,7 @@ class PWS:
         There are the necessary conditions to form the dew
         :param max_humidity: int the max humidity value
         :param delta_dew_point: int The delta dew point
-        :return:
+        :return: boolean
         """
         if max_humidity is not None:
             self.max_humidity = max_humidity
@@ -111,3 +111,10 @@ class PWS:
             self.delta_dew_point = delta_dew_point
         return (self.ext_dew_point + self.delta_dew_point >= self.ext_temperature or
                 self.ext_humidity > self.max_humidity or self.is_rain)
+
+    def is_frost(self):
+        """
+        Is frost
+        :return: boolean
+        """
+        return self.ext_temperature <= 0
